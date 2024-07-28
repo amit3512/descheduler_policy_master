@@ -11,20 +11,46 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+###########################################################
+# FROM golang:1.22.4
+
+# WORKDIR /go/src/sigs.k8s.io/descheduler
+# COPY . .
+# ARG ARCH
+# ARG VERSION
+# RUN VERSION=${VERSION} make build.$ARCH
+
+# FROM scratch
+
+# MAINTAINER Kubernetes SIG Scheduling <kubernetes-sig-scheduling@googlegroups.com>
+
+# USER 1000
+
+# COPY --from=0 /go/src/sigs.k8s.io/descheduler/_output/bin/descheduler /bin/descheduler
+
+# CMD ["/bin/descheduler", "--help"]
+################################################################################
+# Use a base image with Go installed
 FROM golang:1.22.4
 
-WORKDIR /go/src/sigs.k8s.io/descheduler
+# Set the working directory inside the container
+WORKDIR /go/src/github.com/kubernetes-sigs/descheduler
+
+# Copy the local code to the container
 COPY . .
-ARG ARCH
-ARG VERSION
-RUN VERSION=${VERSION} make build.$ARCH
 
-FROM scratch
+# Build the descheduler binary
+RUN make build
 
-MAINTAINER Kubernetes SIG Scheduling <kubernetes-sig-scheduling@googlegroups.com>
+# Use a minimal image for the final stage
+FROM gcr.io/distroless/static:latest
 
-USER 1000
+# Set the working directory inside the container
+WORKDIR /
 
-COPY --from=0 /go/src/sigs.k8s.io/descheduler/_output/bin/descheduler /bin/descheduler
+# Copy the descheduler binary from the builder
+COPY --from=builder /go/src/github.com/kubernetes-sigs/descheduler/_output/bin/descheduler /descheduler
 
-CMD ["/bin/descheduler", "--help"]
+# Command to run the descheduler
+ENTRYPOINT ["/descheduler"]
+
