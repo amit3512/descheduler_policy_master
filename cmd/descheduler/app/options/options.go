@@ -30,7 +30,8 @@ import (
 	"sigs.k8s.io/descheduler/pkg/apis/componentconfig/v1alpha1"
 	deschedulerscheme "sigs.k8s.io/descheduler/pkg/descheduler/scheme"
 	"sigs.k8s.io/descheduler/pkg/tracing"
-	"github.com/amit3512/descheduler_policy_master/tree/master/pkg/framework/plugins/custompolicy"
+	// "github.com/amit3512/descheduler_policy_master/tree/master/pkg/framework/plugins/custompolicy"
+	// "descheduler_policy_master/pkg/framework/plugins/custompolicy"
 
 )
 

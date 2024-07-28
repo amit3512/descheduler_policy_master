@@ -35,7 +35,7 @@ import (
 	"sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatingnodeaffinity"
 	"sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatingnodetaints"
 	"sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatingtopologyspreadconstraint"
-	"github.com/amit3512/descheduler_policy_master/tree/master/pkg/framework/plugins/custompolicy"
+	"descheduler_policy_master/pkg/framework/plugins/custompolicy"
 )
 
 var (
