@@ -34,7 +34,7 @@
 FROM golang:1.22.4
 
 # Set the working directory inside the container
-WORKDIR /go/src/github.com/kubernetes-sigs/descheduler
+WORKDIR /descheduler_policy_master
 
 # Copy the local code to the container
 COPY . .
