@@ -23,6 +23,7 @@ require (
 	k8s.io/klog/v2 v2.120.1
 	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8
 	sigs.k8s.io/mdtoc v1.1.0
+	sigs.k8s.io/descheduler v0.30.0
 )
 
 require (
@@ -112,6 +113,7 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
 	github.com/amit3512/descheduler_policy_master v1.2.3
+	sigs.k8s.io/descheduler v0.30.0
 )
 
 replace go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc => go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.47.0
