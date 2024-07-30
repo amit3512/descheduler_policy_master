@@ -1,4 +1,5 @@
-module sigs.k8s.io/descheduler
+<!-- module sigs.k8s.io/descheduler -->
+module github.com/amit3512/descheduler_policy_master
 
 go 1.22.4
 
