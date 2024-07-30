@@ -37,8 +37,8 @@ FROM golang:1.22.4
 WORKDIR /descheduler_policy_master
 
 # Copy go.mod and go.sum files and download dependencies
-COPY go.mod go.sum ./
-RUN go mod download
+# COPY go.mod go.sum ./
+# RUN go mod download
 
 # Copy the local code to the container
 COPY . .
