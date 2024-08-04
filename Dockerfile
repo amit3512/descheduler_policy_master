@@ -13,14 +13,14 @@
 # limitations under the License.
 
 # Use a base image with Go installed
-FROM golang:1.22.4
+FROM golang:1.22.5
 
 # Set the working directory inside the container
 WORKDIR /descheduler_policy_master
 
 # Copy go.mod and go.sum files and download dependencies
-COPY go.mod go.sum ./
-RUN go mod download
+#COPY go.mod go.sum ./
+#RUN go mod download
 
 # Copy the local code to the container
 COPY . .
@@ -29,7 +29,8 @@ COPY . .
 RUN make build
 
 # Use a minimal image for the final stage
-FROM gcr.io/distroless/static:latest
+#FROM gcr.io/distroless/static:latest
+FROM scratch
 
 # Set the working directory inside the container
 WORKDIR /
