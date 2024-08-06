@@ -1,6 +1,7 @@
-module github.com/amit3512/descheduler_policy_master
+module sigs.k8s.io/descheduler
 
-go 1.22.4
+
+go 1.22.5
 
 require (
 	github.com/client9/misspell v0.3.4
@@ -23,7 +24,7 @@ require (
 	k8s.io/klog/v2 v2.120.1
 	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8
 	sigs.k8s.io/mdtoc v1.1.0
-	
+
 )
 
 require (
@@ -109,11 +110,10 @@ require (
 	k8s.io/kms v0.30.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20240228011516-70dd3763d340 // indirect
 	sigs.k8s.io/apiserver-network-proxy/konnectivity-client v0.29.0 // indirect
+	sigs.k8s.io/descheduler v0.30.1
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
-	github.com/amit3512/descheduler_policy_master v1.2.3
-	sigs.k8s.io/descheduler v0.30.0 // indirect
 )
 
 replace go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc => go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.47.0

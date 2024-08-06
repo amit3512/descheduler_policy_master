@@ -1252,6 +1252,42 @@ sigs.k8s.io/apiserver-network-proxy/konnectivity-client/pkg/client
 sigs.k8s.io/apiserver-network-proxy/konnectivity-client/pkg/client/metrics
 sigs.k8s.io/apiserver-network-proxy/konnectivity-client/pkg/common/metrics
 sigs.k8s.io/apiserver-network-proxy/konnectivity-client/proto/client
+# sigs.k8s.io/descheduler v0.30.1
+## explicit; go 1.22.3
+sigs.k8s.io/descheduler/cmd/descheduler/app
+sigs.k8s.io/descheduler/cmd/descheduler/app/options
+sigs.k8s.io/descheduler/metrics
+sigs.k8s.io/descheduler/pkg/api
+sigs.k8s.io/descheduler/pkg/api/v1alpha1
+sigs.k8s.io/descheduler/pkg/api/v1alpha2
+sigs.k8s.io/descheduler/pkg/apis/componentconfig
+sigs.k8s.io/descheduler/pkg/apis/componentconfig/v1alpha1
+sigs.k8s.io/descheduler/pkg/descheduler
+sigs.k8s.io/descheduler/pkg/descheduler/client
+sigs.k8s.io/descheduler/pkg/descheduler/evictions
+sigs.k8s.io/descheduler/pkg/descheduler/evictions/utils
+sigs.k8s.io/descheduler/pkg/descheduler/node
+sigs.k8s.io/descheduler/pkg/descheduler/pod
+sigs.k8s.io/descheduler/pkg/descheduler/scheme
+sigs.k8s.io/descheduler/pkg/framework/fake
+sigs.k8s.io/descheduler/pkg/framework/fake/plugin
+sigs.k8s.io/descheduler/pkg/framework/pluginregistry
+sigs.k8s.io/descheduler/pkg/framework/plugins/defaultevictor
+sigs.k8s.io/descheduler/pkg/framework/plugins/nodeutilization
+sigs.k8s.io/descheduler/pkg/framework/plugins/podlifetime
+sigs.k8s.io/descheduler/pkg/framework/plugins/removeduplicates
+sigs.k8s.io/descheduler/pkg/framework/plugins/removefailedpods
+sigs.k8s.io/descheduler/pkg/framework/plugins/removepodshavingtoomanyrestarts
+sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatinginterpodantiaffinity
+sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatingnodeaffinity
+sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatingnodetaints
+sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatingtopologyspreadconstraint
+sigs.k8s.io/descheduler/pkg/framework/profile
+sigs.k8s.io/descheduler/pkg/framework/types
+sigs.k8s.io/descheduler/pkg/tracing
+sigs.k8s.io/descheduler/pkg/utils
+sigs.k8s.io/descheduler/pkg/version
+sigs.k8s.io/descheduler/test
 # sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd
 ## explicit; go 1.18
 sigs.k8s.io/json
@@ -1271,5 +1307,4 @@ sigs.k8s.io/structured-merge-diff/v4/value
 ## explicit; go 1.12
 sigs.k8s.io/yaml
 # go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc => go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.47.0
-## explicit; github.com/amit3512/descheduler_policy_master
-## explicit; sigs.k8s.io/descheduler
+## explicit; sigs.k8s.io/descheduler v0.30.1

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Use a base image with Go installed
-FROM golang:1.22.5
+FROM golang:1.22.5 AS builder
 
 # Set the working directory inside the container
 WORKDIR /descheduler_policy_master
