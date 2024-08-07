@@ -23,16 +23,16 @@ import (
 	"github.com/amit3512/descheduler_policy_master/pkg/api"
 )
 
-func TestSetDefaults_LowNodeUtilizationArgs(t *testing.T) {
+func TestSetDefaults_CustomPolicyOneArgs(t *testing.T) {
 	tests := []struct {
 		name string
 		in   runtime.Object
 		want runtime.Object
 	}{
 		{
-			name: "LowNodeUtilizationArgs empty",
-			in:   &LowNodeUtilizationArgs{},
-			want: &LowNodeUtilizationArgs{
+			name: "CustomPolicyOneArgs empty",
+			in:   &CustomPolicyOneArgs{},
+			want: &CustomPolicyOneArgs{
 				UseDeviationThresholds: false,
 				Thresholds:             nil,
 				TargetThresholds:       nil,
@@ -40,8 +40,8 @@ func TestSetDefaults_LowNodeUtilizationArgs(t *testing.T) {
 			},
 		},
 		{
-			name: "LowNodeUtilizationArgs with value",
-			in: &LowNodeUtilizationArgs{
+			name: "CustomPolicyOneArgs with value",
+			in: &CustomPolicyOneArgs{
 				UseDeviationThresholds: true,
 				Thresholds: api.ResourceThresholds{
 					v1.ResourceCPU:    20,
@@ -53,7 +53,7 @@ func TestSetDefaults_LowNodeUtilizationArgs(t *testing.T) {
 				},
 				NumberOfNodes: 10,
 			},
-			want: &LowNodeUtilizationArgs{
+			want: &CustomPolicyOneArgs{
 				UseDeviationThresholds: true,
 				Thresholds: api.ResourceThresholds{
 					v1.ResourceCPU:    20,

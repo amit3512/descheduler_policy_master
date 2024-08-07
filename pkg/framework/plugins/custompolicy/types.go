@@ -21,7 +21,7 @@ import (
 // +k8s:deepcopy-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type CustomPolicyOneArgs struct {
+type LowNodeUtilizationArgs struct {
 	metav1.TypeMeta `json:",inline"`
 
 	UseDeviationThresholds bool                   `json:"useDeviationThresholds"`
@@ -43,6 +43,20 @@ type HighNodeUtilizationArgs struct {
 
 	Thresholds    api.ResourceThresholds `json:"thresholds"`
 	NumberOfNodes int                    `json:"numberOfNodes"`
+	// Naming this one differently since namespaces are still
+	// considered while considering resources used by pods
+	// but then filtered out before eviction
+	EvictableNamespaces *api.Namespaces `json:"evictableNamespaces"`
+}
+
+type CustomPolicyOneArgs struct {
+	metav1.TypeMeta `json:",inline"`
+
+	UseDeviationThresholds bool                   `json:"useDeviationThresholds"`
+	Thresholds             api.ResourceThresholds `json:"thresholds"`
+	TargetThresholds       api.ResourceThresholds `json:"targetThresholds"`
+	NumberOfNodes          int                    `json:"numberOfNodes"`
+
 	// Naming this one differently since namespaces are still
 	// considered while considering resources used by pods
 	// but then filtered out before eviction

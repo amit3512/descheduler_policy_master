@@ -21,10 +21,10 @@ func addDefaultingFuncs(scheme *runtime.Scheme) error {
 	return RegisterDefaults(scheme)
 }
 
-// SetDefaults_LowNodeUtilizationArgs
+// SetDefaults_CustomPolicyOneArgs
 // TODO: the final default values would be discussed in community
-func SetDefaults_LowNodeUtilizationArgs(obj runtime.Object) {
-	args := obj.(*LowNodeUtilizationArgs)
+func SetDefaults_CustomPolicyOneArgs(obj runtime.Object) {
+	args := obj.(*CustomPolicyOneArgs)
 	if !args.UseDeviationThresholds {
 		args.UseDeviationThresholds = false
 	}
