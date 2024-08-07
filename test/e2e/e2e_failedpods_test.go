@@ -13,11 +13,11 @@ import (
 	"k8s.io/apimachinery/pkg/util/wait"
 	clientset "k8s.io/client-go/kubernetes"
 	utilptr "k8s.io/utils/ptr"
-	frameworkfake "sigs.k8s.io/descheduler/pkg/framework/fake"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/defaultevictor"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/removefailedpods"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
-	"sigs.k8s.io/descheduler/test"
+	frameworkfake "github.com/amit3512/descheduler_policy_master/pkg/framework/fake"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/defaultevictor"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/removefailedpods"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/test"
 )
 
 var oneHourPodLifetimeSeconds uint = 3600

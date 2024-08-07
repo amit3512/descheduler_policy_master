@@ -47,7 +47,7 @@ const (
 	EvictOperation = "evict"
 
 	// TracerName is used to setup the named tracer
-	TracerName = "sigs.k8s.io/descheduler"
+	TracerName = "github.com/amit3512/descheduler_policy_master"
 )
 
 var (

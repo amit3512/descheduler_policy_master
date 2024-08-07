@@ -3,7 +3,7 @@ package removeduplicates
 import (
 	"testing"
 
-	"sigs.k8s.io/descheduler/pkg/api"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
 )
 
 func TestValidateRemovePodsViolatingNodeTaintsArgs(t *testing.T) {

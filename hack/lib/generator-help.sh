@@ -10,7 +10,7 @@
 # Example:
 #   find_dirs_containing_comment_tags("+k8s:")
 # Return:
-#   sigs.k8s.io/descheduler/a,sigs.k8s.io/descheduler/b,sigs.k8s.io/descheduler/c
+#   github.com/amit3512/descheduler_policy_master/a,github.com/amit3512/descheduler_policy_master/b,github.com/amit3512/descheduler_policy_master/c
 function find_dirs_containing_comment_tags() {
    array=()
    while IFS='' read -r line; do array+=("$line"); done < <( \

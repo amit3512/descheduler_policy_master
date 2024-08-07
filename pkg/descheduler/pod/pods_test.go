@@ -29,7 +29,7 @@ import (
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes/fake"
 
-	"sigs.k8s.io/descheduler/test"
+	"github.com/amit3512/descheduler_policy_master/test"
 )
 
 var (

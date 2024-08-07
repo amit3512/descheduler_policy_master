@@ -17,7 +17,7 @@ import (
 	"fmt"
 
 	"k8s.io/apimachinery/pkg/runtime"
-	"sigs.k8s.io/descheduler/pkg/api"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
 )
 
 func ValidateHighNodeUtilizationArgs(obj runtime.Object) error {

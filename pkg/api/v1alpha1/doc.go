@@ -20,4 +20,4 @@ limitations under the License.
 // Package v1alpha1 is the v1alpha1 version of the descheduler API
 // +groupName=descheduler
 
-package v1alpha1 // import "sigs.k8s.io/descheduler/pkg/api/v1alpha1"
+package v1alpha1 // import "github.com/amit3512/descheduler_policy_master/pkg/api/v1alpha1"

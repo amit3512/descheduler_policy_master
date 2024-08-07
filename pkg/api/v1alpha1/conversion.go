@@ -27,12 +27,12 @@ import (
 	"k8s.io/client-go/informers"
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/klog/v2"
-	"sigs.k8s.io/descheduler/pkg/api"
-	"sigs.k8s.io/descheduler/pkg/descheduler/evictions"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	"sigs.k8s.io/descheduler/pkg/framework/pluginregistry"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/defaultevictor"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/pluginregistry"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/defaultevictor"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
 )
 
 var (

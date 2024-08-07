@@ -24,9 +24,9 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/serializer"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
-	api "sigs.k8s.io/descheduler/pkg/api"
+	api "github.com/amit3512/descheduler_policy_master/pkg/api"
 
-	"sigs.k8s.io/descheduler/pkg/framework/pluginregistry"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/pluginregistry"
 )
 
 var (

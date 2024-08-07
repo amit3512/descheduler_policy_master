@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra/doc"
-	"sigs.k8s.io/descheduler/cmd/descheduler/app"
+	"github.com/amit3512/descheduler_policy_master/cmd/descheduler/app"
 )
 
 var docGenPath = "docs/cli"

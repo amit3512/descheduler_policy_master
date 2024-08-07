@@ -26,7 +26,7 @@ import (
 
 	conversion "k8s.io/apimachinery/pkg/conversion"
 	runtime "k8s.io/apimachinery/pkg/runtime"
-	componentconfig "sigs.k8s.io/descheduler/pkg/apis/componentconfig"
+	componentconfig "github.com/amit3512/descheduler_policy_master/pkg/apis/componentconfig"
 )
 
 func init() {

@@ -19,7 +19,7 @@ package pluginregistry
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/klog/v2"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
 )
 
 var PluginRegistry Registry

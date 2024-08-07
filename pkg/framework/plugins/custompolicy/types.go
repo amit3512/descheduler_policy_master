@@ -11,11 +11,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package nodeutilization
+package custompolicy
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/descheduler/pkg/api"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
 )
 
 // +k8s:deepcopy-gen=true

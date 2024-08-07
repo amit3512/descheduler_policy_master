@@ -26,10 +26,10 @@ import (
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/klog/v2"
-	nodeutil "sigs.k8s.io/descheduler/pkg/descheduler/node"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
-	"sigs.k8s.io/descheduler/pkg/utils"
+	nodeutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/node"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/pkg/utils"
 )
 
 const (

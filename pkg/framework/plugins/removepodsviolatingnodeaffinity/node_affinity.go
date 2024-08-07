@@ -22,11 +22,11 @@ import (
 
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/klog/v2"
-	"sigs.k8s.io/descheduler/pkg/descheduler/evictions"
-	nodeutil "sigs.k8s.io/descheduler/pkg/descheduler/node"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
-	"sigs.k8s.io/descheduler/pkg/utils"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions"
+	nodeutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/node"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/pkg/utils"
 )
 
 const PluginName = "RemovePodsViolatingNodeAffinity"

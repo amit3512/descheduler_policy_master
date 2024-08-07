@@ -6,11 +6,11 @@ import (
 	"testing"
 
 	componentbaseconfig "k8s.io/component-base/config"
-	"sigs.k8s.io/descheduler/cmd/descheduler/app/options"
-	deschedulerapi "sigs.k8s.io/descheduler/pkg/api"
-	"sigs.k8s.io/descheduler/pkg/descheduler"
-	"sigs.k8s.io/descheduler/pkg/descheduler/client"
-	eutils "sigs.k8s.io/descheduler/pkg/descheduler/evictions/utils"
+	"github.com/amit3512/descheduler_policy_master/cmd/descheduler/app/options"
+	deschedulerapi "github.com/amit3512/descheduler_policy_master/pkg/api"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/client"
+	eutils "github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions/utils"
 )
 
 func TestClientConnectionConfiguration(t *testing.T) {

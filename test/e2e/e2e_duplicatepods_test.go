@@ -21,10 +21,10 @@ import (
 	"strings"
 	"testing"
 
-	frameworkfake "sigs.k8s.io/descheduler/pkg/framework/fake"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/defaultevictor"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/removeduplicates"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
+	frameworkfake "github.com/amit3512/descheduler_policy_master/pkg/framework/fake"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/defaultevictor"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/removeduplicates"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
 
 	appsv1 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"
@@ -33,8 +33,8 @@ import (
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/tools/events"
 	utilptr "k8s.io/utils/ptr"
-	"sigs.k8s.io/descheduler/pkg/descheduler/evictions"
-	eutils "sigs.k8s.io/descheduler/pkg/descheduler/evictions/utils"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions"
+	eutils "github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions/utils"
 )
 
 func TestRemoveDuplicates(t *testing.T) {

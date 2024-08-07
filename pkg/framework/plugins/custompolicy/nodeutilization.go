@@ -14,25 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package nodeutilization
+package custompolicy
 
 import (
 	"context"
 	"math"
 	"sort"
 
-	"sigs.k8s.io/descheduler/pkg/api"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
 
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/klog/v2"
-	"sigs.k8s.io/descheduler/pkg/descheduler/evictions"
-	"sigs.k8s.io/descheduler/pkg/descheduler/node"
-	nodeutil "sigs.k8s.io/descheduler/pkg/descheduler/node"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
-	"sigs.k8s.io/descheduler/pkg/utils"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/node"
+	nodeutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/node"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/pkg/utils"
 )
 
 // NodeUsage stores a node's info, pods on it, thresholds and its resource usage

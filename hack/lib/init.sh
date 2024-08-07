@@ -43,5 +43,5 @@ OS_ROOT="$( os::util::absolute_path "${init_source}" )"
 export OS_ROOT
 cd "${OS_ROOT}"
 
-PRJ_PREFIX="sigs.k8s.io/descheduler"
+PRJ_PREFIX="github.com/amit3512/descheduler_policy_master"
 OS_OUTPUT_BINPATH="${OS_ROOT}/_output/bin"

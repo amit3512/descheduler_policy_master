@@ -30,11 +30,11 @@ import (
 
 	v1helper "k8s.io/component-helpers/scheduling/corev1"
 	"k8s.io/component-helpers/scheduling/corev1/nodeaffinity"
-	"sigs.k8s.io/descheduler/pkg/descheduler/evictions"
-	"sigs.k8s.io/descheduler/pkg/descheduler/node"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
-	"sigs.k8s.io/descheduler/pkg/utils"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/node"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/pkg/utils"
 )
 
 const PluginName = "RemovePodsViolatingTopologySpreadConstraint"

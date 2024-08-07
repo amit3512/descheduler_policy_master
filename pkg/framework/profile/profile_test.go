@@ -17,15 +17,15 @@ import (
 	fakeclientset "k8s.io/client-go/kubernetes/fake"
 	core "k8s.io/client-go/testing"
 
-	"sigs.k8s.io/descheduler/pkg/api"
-	"sigs.k8s.io/descheduler/pkg/descheduler/evictions"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	fakeplugin "sigs.k8s.io/descheduler/pkg/framework/fake/plugin"
-	"sigs.k8s.io/descheduler/pkg/framework/pluginregistry"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/defaultevictor"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
-	"sigs.k8s.io/descheduler/pkg/utils"
-	testutils "sigs.k8s.io/descheduler/test"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	fakeplugin "github.com/amit3512/descheduler_policy_master/pkg/framework/fake/plugin"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/pluginregistry"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/defaultevictor"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/pkg/utils"
+	testutils "github.com/amit3512/descheduler_policy_master/test"
 )
 
 func TestProfileDescheduleBalanceExtensionPointsEviction(t *testing.T) {

@@ -10,11 +10,11 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
-	frameworkfake "sigs.k8s.io/descheduler/pkg/framework/fake"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/defaultevictor"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatingtopologyspreadconstraint"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
-	"sigs.k8s.io/descheduler/test"
+	frameworkfake "github.com/amit3512/descheduler_policy_master/pkg/framework/fake"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/defaultevictor"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/removepodsviolatingtopologyspreadconstraint"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/test"
 )
 
 const zoneTopologyKey string = "topology.kubernetes.io/zone"

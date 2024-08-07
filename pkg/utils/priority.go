@@ -6,7 +6,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clientset "k8s.io/client-go/kubernetes"
-	"sigs.k8s.io/descheduler/pkg/api"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
 )
 
 const SystemCriticalPriority = 2 * int32(1000000000)

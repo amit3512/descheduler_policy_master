@@ -24,12 +24,12 @@ import (
 	"k8s.io/apimachinery/pkg/util/uuid"
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes/fake"
-	"sigs.k8s.io/descheduler/pkg/api"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	frameworkfake "sigs.k8s.io/descheduler/pkg/framework/fake"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
-	"sigs.k8s.io/descheduler/pkg/utils"
-	"sigs.k8s.io/descheduler/test"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	frameworkfake "github.com/amit3512/descheduler_policy_master/pkg/framework/fake"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/pkg/utils"
+	"github.com/amit3512/descheduler_policy_master/test"
 )
 
 type testCase struct {

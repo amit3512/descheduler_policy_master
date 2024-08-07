@@ -21,7 +21,7 @@ import (
 
 	"k8s.io/component-base/metrics"
 	"k8s.io/component-base/metrics/legacyregistry"
-	"sigs.k8s.io/descheduler/pkg/version"
+	"github.com/amit3512/descheduler_policy_master/pkg/version"
 )
 
 const (

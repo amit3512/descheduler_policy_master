@@ -28,8 +28,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes/fake"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	"sigs.k8s.io/descheduler/test"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	"github.com/amit3512/descheduler_policy_master/test"
 )
 
 func TestReadyNodes(t *testing.T) {

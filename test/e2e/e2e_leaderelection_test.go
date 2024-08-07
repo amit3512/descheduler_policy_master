@@ -31,8 +31,8 @@ import (
 	"k8s.io/apimachinery/pkg/labels"
 	clientset "k8s.io/client-go/kubernetes"
 	utilptr "k8s.io/utils/ptr"
-	"sigs.k8s.io/descheduler/cmd/descheduler/app/options"
-	"sigs.k8s.io/descheduler/pkg/descheduler"
+	"github.com/amit3512/descheduler_policy_master/cmd/descheduler/app/options"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler"
 )
 
 func TestLeaderElection(t *testing.T) {

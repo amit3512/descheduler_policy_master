@@ -17,17 +17,17 @@ limitations under the License.
 package descheduler
 
 import (
-	"sigs.k8s.io/descheduler/pkg/framework/pluginregistry"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/defaultevictor"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/nodeutilization"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/podlifetime"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/removeduplicates"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/removefailedpods"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/removepodshavingtoomanyrestarts"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatinginterpodantiaffinity"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatingnodeaffinity"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatingnodetaints"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/removepodsviolatingtopologyspreadconstraint"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/pluginregistry"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/defaultevictor"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/nodeutilization"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/podlifetime"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/removeduplicates"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/removefailedpods"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/removepodshavingtoomanyrestarts"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/removepodsviolatinginterpodantiaffinity"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/removepodsviolatingnodeaffinity"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/removepodsviolatingnodetaints"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/removepodsviolatingtopologyspreadconstraint"
 )
 
 func SetupPlugins() {

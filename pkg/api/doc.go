@@ -16,4 +16,4 @@ limitations under the License.
 
 // +k8s:deepcopy-gen=package,register
 
-package api // import "sigs.k8s.io/descheduler/pkg/api"
+package api // import "github.com/amit3512/descheduler_policy_master/pkg/api"

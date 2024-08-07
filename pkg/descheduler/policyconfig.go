@@ -27,13 +27,13 @@ import (
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/klog/v2"
 
-	"sigs.k8s.io/descheduler/pkg/api"
-	"sigs.k8s.io/descheduler/pkg/api/v1alpha1"
-	"sigs.k8s.io/descheduler/pkg/api/v1alpha2"
-	"sigs.k8s.io/descheduler/pkg/descheduler/scheme"
-	"sigs.k8s.io/descheduler/pkg/framework/pluginregistry"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/defaultevictor"
-	"sigs.k8s.io/descheduler/pkg/utils"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
+	"github.com/amit3512/descheduler_policy_master/pkg/api/v1alpha1"
+	"github.com/amit3512/descheduler_policy_master/pkg/api/v1alpha2"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/scheme"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/pluginregistry"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/defaultevictor"
+	"github.com/amit3512/descheduler_policy_master/pkg/utils"
 )
 
 func LoadPolicyConfig(policyConfigFile string, client clientset.Interface, registry pluginregistry.Registry) (*api.DeschedulerPolicy, error) {

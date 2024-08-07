@@ -30,8 +30,8 @@ import (
 	listersv1 "k8s.io/client-go/listers/core/v1"
 	"k8s.io/client-go/util/workqueue"
 	"k8s.io/klog/v2"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	"sigs.k8s.io/descheduler/pkg/utils"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	"github.com/amit3512/descheduler_policy_master/pkg/utils"
 )
 
 const workersCount = 100

@@ -1,4 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/sigs.k8s.io/descheduler)](https://goreportcard.com/report/sigs.k8s.io/descheduler)
+[![Go Report Card](https://goreportcard.com/badge/github.com/amit3512/descheduler_policy_master)](https://goreportcard.com/report/github.com/amit3512/descheduler_policy_master)
 ![Release Charts](https://github.com/kubernetes-sigs/descheduler/workflows/Release%20Charts/badge.svg)
 
 <p align="center">

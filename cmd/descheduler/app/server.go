@@ -25,9 +25,9 @@ import (
 
 	"k8s.io/apiserver/pkg/server/healthz"
 
-	"sigs.k8s.io/descheduler/cmd/descheduler/app/options"
-	"sigs.k8s.io/descheduler/pkg/descheduler"
-	"sigs.k8s.io/descheduler/pkg/tracing"
+	"github.com/amit3512/descheduler_policy_master/cmd/descheduler/app/options"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler"
+	"github.com/amit3512/descheduler_policy_master/pkg/tracing"
 
 	"github.com/spf13/cobra"
 

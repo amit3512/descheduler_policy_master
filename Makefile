@@ -21,7 +21,7 @@ VERSION?=v$(shell date +%Y%m%d)-$(shell git describe --tags)
 BRANCH?=$(shell git branch --show-current)
 SHA1?=$(shell git rev-parse HEAD)
 BUILD=$(shell date +%FT%T%z)
-LDFLAG_LOCATION=sigs.k8s.io/descheduler/pkg/version
+LDFLAG_LOCATION=github.com/amit3512/descheduler_policy_master/pkg/version
 ARCHS = amd64 arm arm64
 
 LDFLAGS=-ldflags "-X ${LDFLAG_LOCATION}.version=${VERSION} -X ${LDFLAG_LOCATION}.buildDate=${BUILD} -X ${LDFLAG_LOCATION}.gitbranch=${BRANCH} -X ${LDFLAG_LOCATION}.gitsha1=${SHA1}"
@@ -59,16 +59,16 @@ HAS_HELM := $(shell which helm 2> /dev/null)
 all: build
 
 build:
-	CGO_ENABLED=0 go build ${LDFLAGS} -o _output/bin/descheduler sigs.k8s.io/descheduler/cmd/descheduler
+	CGO_ENABLED=0 go build ${LDFLAGS} -o _output/bin/descheduler github.com/amit3512/descheduler_policy_master/cmd/descheduler
 
 build.amd64:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ${LDFLAGS} -o _output/bin/descheduler sigs.k8s.io/descheduler/cmd/descheduler
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ${LDFLAGS} -o _output/bin/descheduler github.com/amit3512/descheduler_policy_master/cmd/descheduler
 
 build.arm:
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build ${LDFLAGS} -o _output/bin/descheduler sigs.k8s.io/descheduler/cmd/descheduler
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build ${LDFLAGS} -o _output/bin/descheduler github.com/amit3512/descheduler_policy_master/cmd/descheduler
 
 build.arm64:
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build ${LDFLAGS} -o _output/bin/descheduler sigs.k8s.io/descheduler/cmd/descheduler
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build ${LDFLAGS} -o _output/bin/descheduler github.com/amit3512/descheduler_policy_master/cmd/descheduler
 
 dev-image: build
 	$(CONTAINER_ENGINE) build -f Dockerfile.dev -t $(IMAGE) .
@@ -136,7 +136,7 @@ gen:
 	./hack/update-docs.sh
 
 gen-docker:
-	$(CONTAINER_ENGINE) run --entrypoint make -it -v $(CURRENT_DIR):/go/src/sigs.k8s.io/descheduler -w /go/src/sigs.k8s.io/descheduler golang:$(GO_VERSION) gen
+	$(CONTAINER_ENGINE) run --entrypoint make -it -v $(CURRENT_DIR):/go/src/github.com/amit3512/descheduler_policy_master -w /go/src/github.com/amit3512/descheduler_policy_master golang:$(GO_VERSION) gen
 
 verify-gen:
 	./hack/verify-conversions.sh

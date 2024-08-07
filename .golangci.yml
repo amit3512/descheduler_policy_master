@@ -15,4 +15,4 @@ linters-settings:
   gofumpt:
     extra-rules: true
   goimports:
-    local-prefixes: sigs.k8s.io/descheduler
+    local-prefixes: github.com/amit3512/descheduler_policy_master

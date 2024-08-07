@@ -21,10 +21,10 @@ import (
 	"fmt"
 	"testing"
 
-	"sigs.k8s.io/descheduler/pkg/api"
-	frameworkfake "sigs.k8s.io/descheduler/pkg/framework/fake"
-	"sigs.k8s.io/descheduler/pkg/framework/plugins/defaultevictor"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
+	frameworkfake "github.com/amit3512/descheduler_policy_master/pkg/framework/fake"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/plugins/defaultevictor"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
 
 	v1 "k8s.io/api/core/v1"
 	policy "k8s.io/api/policy/v1"
@@ -35,10 +35,10 @@ import (
 	core "k8s.io/client-go/testing"
 	"k8s.io/client-go/tools/events"
 
-	"sigs.k8s.io/descheduler/pkg/descheduler/evictions"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	"sigs.k8s.io/descheduler/pkg/utils"
-	"sigs.k8s.io/descheduler/test"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	"github.com/amit3512/descheduler_policy_master/pkg/utils"
+	"github.com/amit3512/descheduler_policy_master/test"
 )
 
 func TestLowNodeUtilization(t *testing.T) {

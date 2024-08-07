@@ -30,10 +30,10 @@ import (
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/events"
 	"k8s.io/klog/v2"
-	"sigs.k8s.io/descheduler/metrics"
+	"github.com/amit3512/descheduler_policy_master/metrics"
 
-	eutils "sigs.k8s.io/descheduler/pkg/descheduler/evictions/utils"
-	"sigs.k8s.io/descheduler/pkg/tracing"
+	eutils "github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions/utils"
+	"github.com/amit3512/descheduler_policy_master/pkg/tracing"
 )
 
 // nodePodEvictedCount keeps count of pods evicted on node
@@ -191,7 +191,7 @@ func (pe *PodEvictor) EvictPod(ctx context.Context, pod *v1.Pod, opts EvictOptio
 				reason = "NotSet"
 			}
 		}
-		pe.eventRecorder.Eventf(pod, nil, v1.EventTypeNormal, reason, "Descheduled", "pod evicted from %v node by sigs.k8s.io/descheduler", pod.Spec.NodeName)
+		pe.eventRecorder.Eventf(pod, nil, v1.EventTypeNormal, reason, "Descheduled", "pod evicted from %v node by github.com/amit3512/descheduler_policy_master", pod.Spec.NodeName)
 	}
 	return nil
 }

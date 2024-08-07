@@ -15,10 +15,10 @@ limitations under the License.
 */
 
 // +k8s:deepcopy-gen=package,register
-// +k8s:conversion-gen=sigs.k8s.io/descheduler/pkg/api
+// +k8s:conversion-gen=github.com/amit3512/descheduler_policy_master/pkg/api
 // +k8s:defaulter-gen=TypeMeta
 
 // Package v1alpha2 is the v1alpha2 version of the descheduler API
 // +groupName=descheduler
 
-package v1alpha2 // import "sigs.k8s.io/descheduler/pkg/api/v1alpha2"
+package v1alpha2 // import "github.com/amit3512/descheduler_policy_master/pkg/api/v1alpha2"

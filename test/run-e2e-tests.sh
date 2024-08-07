@@ -41,5 +41,5 @@ if [ -n "$KIND_E2E" ]; then
     mkdir -p ~/gopath/src/sigs.k8s.io/
 fi
 
-PRJ_PREFIX="sigs.k8s.io/descheduler"
+PRJ_PREFIX="github.com/amit3512/descheduler_policy_master"
 go test ${PRJ_PREFIX}/test/e2e/ -v

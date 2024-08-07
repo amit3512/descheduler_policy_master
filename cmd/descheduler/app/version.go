@@ -20,7 +20,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"sigs.k8s.io/descheduler/pkg/version"
+	"github.com/amit3512/descheduler_policy_master/pkg/version"
 )
 
 func NewVersionCommand() *cobra.Command {

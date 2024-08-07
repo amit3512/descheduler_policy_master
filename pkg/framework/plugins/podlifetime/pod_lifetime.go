@@ -26,10 +26,10 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/klog/v2"
 
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
 
-	"sigs.k8s.io/descheduler/pkg/descheduler/evictions"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
 )
 
 const PluginName = "PodLifeTime"

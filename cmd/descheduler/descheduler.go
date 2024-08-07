@@ -20,7 +20,7 @@ import (
 	"os"
 
 	"k8s.io/component-base/cli"
-	"sigs.k8s.io/descheduler/cmd/descheduler/app"
+	"github.com/amit3512/descheduler_policy_master/cmd/descheduler/app"
 )
 
 func main() {

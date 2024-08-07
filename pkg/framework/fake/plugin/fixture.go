@@ -15,7 +15,7 @@ package plugin
 
 import (
 	v1 "k8s.io/api/core/v1"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
 )
 
 type Action interface {

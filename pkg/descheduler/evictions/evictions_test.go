@@ -28,9 +28,9 @@ import (
 	core "k8s.io/client-go/testing"
 	"k8s.io/client-go/tools/events"
 	utilptr "k8s.io/utils/ptr"
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	"sigs.k8s.io/descheduler/pkg/utils"
-	"sigs.k8s.io/descheduler/test"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	"github.com/amit3512/descheduler_policy_master/pkg/utils"
+	"github.com/amit3512/descheduler_policy_master/test"
 )
 
 func TestEvictPod(t *testing.T) {

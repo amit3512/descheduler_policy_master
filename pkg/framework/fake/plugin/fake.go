@@ -20,8 +20,8 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"sigs.k8s.io/descheduler/pkg/framework/pluginregistry"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
+	"github.com/amit3512/descheduler_policy_master/pkg/framework/pluginregistry"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
 )
 
 // +k8s:deepcopy-gen=true

@@ -972,7 +972,7 @@ Recall that end users cannot usually observe component logs or access metrics.
 - [ ] Events
   - Event type: `Normal`
   - Event action: `Descheduled`
-  - Event Reason: `pod evicted from NODE node by sigs.k8s.io/descheduler`
+  - Event Reason: `pod evicted from NODE node by github.com/amit3512/descheduler_policy_master`
 - [ ] Other (treat as last resort)
   - Details: checking the descheduler logs
 

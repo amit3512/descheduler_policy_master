@@ -25,12 +25,12 @@ import (
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/klog/v2"
-	"sigs.k8s.io/descheduler/pkg/api"
-	"sigs.k8s.io/descheduler/pkg/descheduler/evictions"
-	nodeutil "sigs.k8s.io/descheduler/pkg/descheduler/node"
+	"github.com/amit3512/descheduler_policy_master/pkg/api"
+	"github.com/amit3512/descheduler_policy_master/pkg/descheduler/evictions"
+	nodeutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/node"
 
-	podutil "sigs.k8s.io/descheduler/pkg/descheduler/pod"
-	frameworktypes "sigs.k8s.io/descheduler/pkg/framework/types"
+	podutil "github.com/amit3512/descheduler_policy_master/pkg/descheduler/pod"
+	frameworktypes "github.com/amit3512/descheduler_policy_master/pkg/framework/types"
 )
 
 const HighNodeUtilizationPluginName = "HighNodeUtilization"
