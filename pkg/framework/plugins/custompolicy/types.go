@@ -21,7 +21,7 @@ import (
 // +k8s:deepcopy-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type LowNodeUtilizationArgs struct {
+type CustomPolicyOneArgs struct {
 	metav1.TypeMeta `json:",inline"`
 
 	UseDeviationThresholds bool                   `json:"useDeviationThresholds"`
