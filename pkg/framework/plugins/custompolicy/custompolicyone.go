@@ -1,25 +1,9 @@
-/*
-Copyright 2022 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
-// package nodeutilization
 package custompolicy
 
 import (
 	"context"
 	"fmt"
+	"sort"
 
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -32,9 +16,6 @@ import (
 )
 
 const CustomPolicyOnePluginName = "CustomPolicyOne"
-
-// CustomPolicyOne evicts pods from overutilized nodes to underutilized nodes. Note that CPU/Memory requests are used
-// to calculate nodes' utilization and not the actual resource usage.
 
 type CustomPolicyOne struct {
 	handle    frameworktypes.Handle
@@ -77,10 +58,11 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 	targetThresholds := l.args.TargetThresholds
 	resourceNames := getResourceNames(thresholds)
 
+	// Correct function call with proper arguments
+	nodeUsageFunc := l.handle.GetPodsAssignedToNodeFunc()
 	lowNodes, sourceNodes := classifyNodes(
-		getNodeUsage(nodes, resourceNames, l.handle.GetPodsAssignedToNodeFunc()),
-		getNodeThresholds(nodes, thresholds, targetThresholds, resourceNames, l.handle.GetPodsAssignedToNodeFunc(), useDeviationThresholds),
-		// The node has to be schedulable (to be able to move workload there)
+		getNodeUsage(nodes, resourceNames, nodeUsageFunc),
+		getNodeThresholds(nodes, thresholds, targetThresholds, resourceNames, nodeUsageFunc, useDeviationThresholds),
 		func(node *v1.Node, usage NodeUsage, threshold NodeThresholds) bool {
 			if nodeutil.IsNodeUnschedulable(node) {
 				klog.V(2).InfoS("Node is unschedulable, thus not considered as underutilized", "node", klog.KObj(node))
@@ -96,7 +78,7 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 	// Calculate CPU utilization for each node in sourceNodes
 	nodeCPUUtilization := make(map[*v1.Node]float64)
 	for _, node := range sourceNodes {
-		pods, _ := l.handle.GetPodsAssignedToNodeFunc()(node.Name)
+		pods, _ := nodeUsageFunc(node.Name, l.podFilter)
 		nodeCPUUtilization[node] = calculateCPUUtilization(node, pods)
 	}
 
@@ -107,7 +89,7 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 
 	// Get the node with the highest CPU utilization
 	highestUtilizedNode := sourceNodes[0]
-	pods, _ := l.handle.GetPodsAssignedToNodeFunc()(highestUtilizedNode.Name)
+	pods, _ := nodeUsageFunc(highestUtilizedNode.Name, l.podFilter)
 
 	// Find the pod with the least CPU usage on the highest utilized node
 	var podToEvict *v1.Pod
@@ -160,21 +142,6 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 	}
 
 	return nil
-	// Sort the nodes by the usage in descending order
-	// sortNodesByUsage(sourceNodes, false)
-
-	// evictPodsFromSourceNodes(
-	// 	ctx,
-	// 	l.args.EvictableNamespaces,
-	// 	sourceNodes,
-	// 	lowNodes,
-	// 	l.handle.Evictor(),
-	// 	evictions.EvictOptions{StrategyName: CustomPolicyOnePluginName},
-	// 	l.podFilter,
-	// 	resourceNames,
-	// 	continueEvictionCond)
-
-	// return nil
 }
 
 // Dummy function to calculate CPU utilization of a node based on its pods
@@ -185,7 +152,7 @@ func calculateCPUUtilization(node *v1.Node, pods []*v1.Pod) float64 {
 			totalCPU.Add(container.Resources.Requests[v1.ResourceCPU])
 		}
 	}
-	return float64(totalCPU.MilliValue()) / float64(node.Status.Capacity.Cpu().MilliValue()) * 100
+	return float64(totalCPU.MilliValue()) / float64(node.Status.Capacity[v1.ResourceCPU].MilliValue()) * 100
 }
 
 // Dummy function to find the node with the most available resources
