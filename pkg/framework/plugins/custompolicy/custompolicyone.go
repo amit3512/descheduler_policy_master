@@ -75,35 +75,6 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 	useDeviationThresholds := l.args.UseDeviationThresholds
 	thresholds := l.args.Thresholds
 	targetThresholds := l.args.TargetThresholds
-
-	// check if Pods/CPU/Mem are set, if not, set them to 100
-	if _, ok := thresholds[v1.ResourcePods]; !ok {
-		if useDeviationThresholds {
-			thresholds[v1.ResourcePods] = MinResourcePercentage
-			targetThresholds[v1.ResourcePods] = MinResourcePercentage
-		} else {
-			thresholds[v1.ResourcePods] = MaxResourcePercentage
-			targetThresholds[v1.ResourcePods] = MaxResourcePercentage
-		}
-	}
-	if _, ok := thresholds[v1.ResourceCPU]; !ok {
-		if useDeviationThresholds {
-			thresholds[v1.ResourceCPU] = MinResourcePercentage
-			targetThresholds[v1.ResourceCPU] = MinResourcePercentage
-		} else {
-			thresholds[v1.ResourceCPU] = MaxResourcePercentage
-			targetThresholds[v1.ResourceCPU] = MaxResourcePercentage
-		}
-	}
-	if _, ok := thresholds[v1.ResourceMemory]; !ok {
-		if useDeviationThresholds {
-			thresholds[v1.ResourceMemory] = MinResourcePercentage
-			targetThresholds[v1.ResourceMemory] = MinResourcePercentage
-		} else {
-			thresholds[v1.ResourceMemory] = MaxResourcePercentage
-			targetThresholds[v1.ResourceMemory] = MaxResourcePercentage
-		}
-	}
 	resourceNames := getResourceNames(thresholds)
 
 	lowNodes, sourceNodes := classifyNodes(
@@ -122,81 +93,139 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 		},
 	)
 
-	// log message for nodes with low utilization
-	underutilizationCriteria := []interface{}{
-		"CPU", thresholds[v1.ResourceCPU],
-		"Mem", thresholds[v1.ResourceMemory],
-		"Pods", thresholds[v1.ResourcePods],
+	// Calculate CPU utilization for each node in sourceNodes
+	nodeCPUUtilization := make(map[*v1.Node]float64)
+	for _, node := range sourceNodes {
+		pods, _ := l.handle.GetPodsAssignedToNodeFunc()(node.Name)
+		nodeCPUUtilization[node] = calculateCPUUtilization(node, pods)
 	}
-	for name := range thresholds {
-		if !nodeutil.IsBasicResource(name) {
-			underutilizationCriteria = append(underutilizationCriteria, string(name), int64(thresholds[name]))
+
+	// Sort sourceNodes by CPU utilization in descending order
+	sort.SliceStable(sourceNodes, func(i, j int) bool {
+		return nodeCPUUtilization[sourceNodes[i]] > nodeCPUUtilization[sourceNodes[j]]
+	})
+
+	// Get the node with the highest CPU utilization
+	highestUtilizedNode := sourceNodes[0]
+	pods, _ := l.handle.GetPodsAssignedToNodeFunc()(highestUtilizedNode.Name)
+
+	// Find the pod with the least CPU usage on the highest utilized node
+	var podToEvict *v1.Pod
+	minCPUUsage := resource.NewQuantity(int64(1<<63-1), resource.DecimalSI) // Max int value
+	for _, pod := range pods {
+		podCPUUsage := resource.NewQuantity(0, resource.DecimalSI)
+		for _, container := range pod.Spec.Containers {
+			podCPUUsage.Add(container.Resources.Requests[v1.ResourceCPU])
+		}
+
+		if podCPUUsage.Cmp(*minCPUUsage) < 0 {
+			minCPUUsage = podCPUUsage
+			podToEvict = pod
 		}
 	}
-	klog.V(1).InfoS("Criteria for a node under utilization", underutilizationCriteria...)
-	klog.V(1).InfoS("Number of underutilized nodes", "totalNumber", len(lowNodes))
 
-	// log message for over utilized nodes
-	overutilizationCriteria := []interface{}{
-		"CPU", targetThresholds[v1.ResourceCPU],
-		"Mem", targetThresholds[v1.ResourceMemory],
-		"Pods", targetThresholds[v1.ResourcePods],
-	}
-	for name := range targetThresholds {
-		if !nodeutil.IsBasicResource(name) {
-			overutilizationCriteria = append(overutilizationCriteria, string(name), int64(targetThresholds[name]))
-		}
-	}
-	klog.V(1).InfoS("Criteria for a node above target utilization", overutilizationCriteria...)
-	klog.V(1).InfoS("Number of overutilized nodes", "totalNumber", len(sourceNodes))
-
-	if len(lowNodes) == 0 {
-		klog.V(1).InfoS("No node is underutilized, nothing to do here, you might tune your thresholds further")
+	if podToEvict == nil {
+		klog.V(1).InfoS("No pod found to evict from the most utilized node", "node", klog.KObj(highestUtilizedNode))
 		return nil
 	}
 
-	if len(lowNodes) <= l.args.NumberOfNodes {
-		klog.V(1).InfoS("Number of nodes underutilized is less or equal than NumberOfNodes, nothing to do here", "underutilizedNodes", len(lowNodes), "numberOfNodes", l.args.NumberOfNodes)
-		return nil
-	}
+	klog.V(1).InfoS("Evicting pod with the least CPU usage", "pod", klog.KObj(podToEvict), "node", klog.KObj(highestUtilizedNode))
 
-	if len(lowNodes) == len(nodes) {
-		klog.V(1).InfoS("All nodes are underutilized, nothing to do here")
-		return nil
-	}
-
-	if len(sourceNodes) == 0 {
-		klog.V(1).InfoS("All nodes are under target utilization, nothing to do here")
-		return nil
-	}
-
-	// stop if node utilization drops below target threshold or any of required capacity (cpu, memory, pods) is moved
-	continueEvictionCond := func(nodeInfo NodeInfo, totalAvailableUsage map[v1.ResourceName]*resource.Quantity) bool {
-		if !isNodeAboveTargetUtilization(nodeInfo.NodeUsage, nodeInfo.thresholds.highResourceThreshold) {
-			return false
+	// Find the target node for rescheduling the pod
+	var targetNode *v1.Node
+	for _, node := range lowNodes {
+		if isRelatedToPod(podToEvict, node) {
+			targetNode = node
+			break
 		}
-		for name := range totalAvailableUsage {
-			if totalAvailableUsage[name].CmpInt64(0) < 1 {
-				return false
-			}
-		}
-
-		return true
 	}
 
-	// Sort the nodes by the usage in descending order
-	sortNodesByUsage(sourceNodes, false)
+	if targetNode == nil {
+		// If no related node found, pick the node with the most available resources
+		targetNode = findNodeWithMostResources(lowNodes)
+	}
 
-	evictPodsFromSourceNodes(
-		ctx,
-		l.args.EvictableNamespaces,
-		sourceNodes,
-		lowNodes,
-		l.handle.Evictor(),
-		evictions.EvictOptions{StrategyName: CustomPolicyOnePluginName},
-		l.podFilter,
-		resourceNames,
-		continueEvictionCond)
+	if targetNode == nil {
+		klog.V(1).InfoS("No suitable target node found for rescheduling", "pod", klog.KObj(podToEvict))
+		return nil
+	}
+
+	klog.V(1).InfoS("Rescheduling pod to target node", "pod", klog.KObj(podToEvict), "targetNode", klog.KObj(targetNode))
+
+	// Evict the pod and reschedule it to the target node
+	err := l.handle.Evictor().Evict(ctx, podToEvict, evictions.EvictOptions{StrategyName: CustomPolicyOnePluginName})
+	if err != nil {
+		klog.V(1).InfoS("Failed to evict pod", "pod", klog.KObj(podToEvict), "error", err)
+		return frameworktypes.NewStatus(frameworktypes.Error, fmt.Sprintf("Failed to evict pod: %v", err))
+	}
 
 	return nil
+	// Sort the nodes by the usage in descending order
+	// sortNodesByUsage(sourceNodes, false)
+
+	// evictPodsFromSourceNodes(
+	// 	ctx,
+	// 	l.args.EvictableNamespaces,
+	// 	sourceNodes,
+	// 	lowNodes,
+	// 	l.handle.Evictor(),
+	// 	evictions.EvictOptions{StrategyName: CustomPolicyOnePluginName},
+	// 	l.podFilter,
+	// 	resourceNames,
+	// 	continueEvictionCond)
+
+	// return nil
+}
+
+// Dummy function to calculate CPU utilization of a node based on its pods
+func calculateCPUUtilization(node *v1.Node, pods []*v1.Pod) float64 {
+	totalCPU := resource.NewMilliQuantity(0, resource.DecimalSI)
+	for _, pod := range pods {
+		for _, container := range pod.Spec.Containers {
+			totalCPU.Add(container.Resources.Requests[v1.ResourceCPU])
+		}
+	}
+	return float64(totalCPU.MilliValue()) / float64(node.Status.Capacity.Cpu().MilliValue()) * 100
+}
+
+// Dummy function to find the node with the most available resources
+func findNodeWithMostResources(nodes []*v1.Node) *v1.Node {
+	var targetNode *v1.Node
+	maxAvailableResources := resource.NewQuantity(0, resource.DecimalSI)
+
+	for _, node := range nodes {
+		availableResources := calculateAvailableResources(node)
+		if availableResources.Cmp(*maxAvailableResources) > 0 {
+			maxAvailableResources = availableResources
+			targetNode = node
+		}
+	}
+
+	return targetNode
+}
+
+// Dummy function to calculate available resources on a node
+func calculateAvailableResources(node *v1.Node) *resource.Quantity {
+	// Implement logic to calculate the available resources (CPU, memory, etc.) on the node
+	// This function should return a quantity representing the aggregate available resources
+	return resource.NewQuantity(1000, resource.DecimalSI) // Example value
+}
+
+// Implement logic to determine if a node is related to the pod
+func isRelatedToPod(pod *v1.Pod, node *v1.Node) bool {
+	podLabels := pod.Labels
+	nodeLabels := node.Labels
+	relatedLabels := []string{"app", "service", "database"}
+
+	for _, key := range relatedLabels {
+		if podValue, podHasLabel := podLabels[key]; podHasLabel {
+			if nodeValue, nodeHasLabel := nodeLabels[key]; nodeHasLabel {
+				if podValue == nodeValue {
+					return true
+				}
+			}
+		}
+	}
+
+	return false
 }
