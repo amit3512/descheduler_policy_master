@@ -78,8 +78,7 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 	// Calculate CPU utilization for each node in sourceNodes
 	nodeCPUUtilization := make(map[*v1.Node]float64)
 	for _, node := range sourceNodes {
-		// pods, _ := nodeUsageFunc(node.NAME, l.podFilter)
-		pods, _ := nodeUsageFunc(node.name, l.podFilter)
+		pods, _ := nodeUsageFunc(node.NAME, l.podFilter)
 		nodeCPUUtilization[node] = calculateCPUUtilization(node, pods)
 	}
 
@@ -90,8 +89,7 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 
 	// Get the node with the highest CPU utilization
 	highestUtilizedNode := sourceNodes[0]
-	// pods, _ := nodeUsageFunc(highestUtilizedNode.NAME, l.podFilter)
-	pods, _ := nodeUsageFunc(highestUtilizedNode.name, l.podFilter)
+	pods, _ := nodeUsageFunc(highestUtilizedNode.NAME, l.podFilter)
 
 	// Find the pod with the least CPU usage on the highest utilized node
 	var podToEvict *v1.Pod
@@ -147,7 +145,7 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 }
 
 // Dummy function to calculate CPU utilization of a node based on its pods
-func calculateCPUUtilization(node, pods) float64 {
+func calculateCPUUtilization(node *v1.Node, pods []*v1.Pod) float64 {
 	totalCPU := resource.NewMilliQuantity(0, resource.DecimalSI)
 	for _, pod := range pods {
 		for _, container := range pod.Spec.Containers {
@@ -158,7 +156,7 @@ func calculateCPUUtilization(node, pods) float64 {
 }
 
 // Dummy function to find the node with the most available resources
-func findNodeWithMostResources(nodes) *v1.Node {
+func findNodeWithMostResources(nodes []*v1.Node) *v1.Node {
 	var targetNode *v1.Node
 	maxAvailableResources := resource.NewQuantity(0, resource.DecimalSI)
 
@@ -174,14 +172,14 @@ func findNodeWithMostResources(nodes) *v1.Node {
 }
 
 // Dummy function to calculate available resources on a node
-func calculateAvailableResources(node) *resource.Quantity {
+func calculateAvailableResources(node *v1.Node) *resource.Quantity {
 	// Implement logic to calculate the available resources (CPU, memory, etc.) on the node
 	// This function should return a quantity representing the aggregate available resources
 	return resource.NewQuantity(1000, resource.DecimalSI) // Example value
 }
 
 // Implement logic to determine if a node is related to the pod
-func isRelatedToPod(pod, node) bool {
+func isRelatedToPod(pod *v1.Pod, node *v1.Node) bool {
 	podLabels := pod.Labels
 	nodeLabels := node.Labels
 	relatedLabels := []string{"app", "service", "database"}
