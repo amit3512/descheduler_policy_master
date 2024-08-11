@@ -78,7 +78,7 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 	// Calculate CPU utilization for each node in sourceNodes
 	nodeCPUUtilization := make(map[*v1.Node]float64)
 	for _, node := range sourceNodes {
-		pods, _ := nodeUsageFunc(node.NAME, l.podFilter)
+		pods, _ := nodeUsageFunc(node.nodeName, l.podFilter)
 		nodeCPUUtilization[node] = calculateCPUUtilization(node, pods)
 	}
 
@@ -89,7 +89,7 @@ func (l *CustomPolicyOne) Balance(ctx context.Context, nodes []*v1.Node) *framew
 
 	// Get the node with the highest CPU utilization
 	highestUtilizedNode := sourceNodes[0]
-	pods, _ := nodeUsageFunc(highestUtilizedNode.NAME, l.podFilter)
+	pods, _ := nodeUsageFunc(highestUtilizedNode.nodeName, l.podFilter)
 
 	// Find the pod with the least CPU usage on the highest utilized node
 	var podToEvict *v1.Pod
